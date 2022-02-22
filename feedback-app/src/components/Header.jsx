@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 
+
 function Header({text, bgColor, textColor}) {
   // inline styline.
   const headerStyles = {
@@ -9,7 +10,10 @@ function Header({text, bgColor, textColor}) {
   return (
     <header style={headerStyles}>
       <div className="container">
-          <h2>{text}</h2>
+      
+        <h2>{text}</h2>
+       
+         
       </div>
     </header>
   )

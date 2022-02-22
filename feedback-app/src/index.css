@@ -211,6 +211,11 @@ input:focus {
   margin: 10px 0;
 }
 
+.active {
+  background: #000;
+  color: red;
+}
+
 @media (max-width: 600px) {
   .rating li {
     margin: 10px 3px;
