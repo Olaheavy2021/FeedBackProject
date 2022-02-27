@@ -1,10 +1,14 @@
 import FeedbackItem from  './FeedbackItem'
-import PropTypes from 'prop-types'
+import Spinner from  './shared/Spinner'
 import {motion, AnimatePresence} from 'framer-motion'
+import FeedbackContext from '../context/FeedbackContext'
+import { useContext } from 'react'
 
 
-function FeedbackList({feedback,handleDelete}) {
-    if(!feedback || feedback.length === 0){
+function FeedbackList() {
+  const{feedback,isLoading} = useContext(FeedbackContext)
+
+    if(!isLoading && (!feedback || feedback.length === 0)){
         return <p>No Feedback yet.</p>
     }
 
@@ -22,45 +26,46 @@ function FeedbackList({feedback,handleDelete}) {
   //     </div>
   //   )
   // }
-  
-  return (
+
+  return isLoading ? (<Spinner/>)
+  :
+  (
     <div className="feedback-list">
-      <AnimatePresence>
+    <AnimatePresence>
 
-      {feedback.map((item) => (
+    {feedback.map((item) => (
 
-          <motion.div 
-          key={item.id}
-          initial = {{opacity:0}}
-          animate = {{opacity:1}}
-          exit = {{opacity: 0}}>
-         
-            <FeedbackItem 
-          key={item.id} 
-          item={item}
-          handleDelete = {handleDelete}
-          />
+        <motion.div 
+        key={item.id}
+        initial = {{opacity:0}}
+        animate = {{opacity:1}}
+        exit = {{opacity: 0}}>
+       
+          <FeedbackItem 
+        key={item.id} 
+        item={item}
+        />
 
-          </motion.div>
-        
-        ))
-        }
+        </motion.div>
+      
+      ))
+      }
 
-        </AnimatePresence>
+      </AnimatePresence>
 
-        
-    </div>
+      
+  </div>
   )
 }
 
-FeedbackList.propTypes = {
-  feedback: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      text: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired
-    })
-  )
-}
+// FeedbackList.propTypes = {
+//   feedback: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.number.isRequired,
+//       text: PropTypes.string.isRequired,
+//       rating: PropTypes.number.isRequired
+//     })
+//   )
+// }
 
 export default FeedbackList
